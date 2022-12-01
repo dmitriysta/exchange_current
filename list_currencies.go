@@ -6,27 +6,32 @@ import (
 	"strconv"
 )
 
-func addFromFile() map[string]float64 {
-	ListCurrencies := make(map[string]float64)
+var listCurrencies map[string]float64
+
+const startNameCurrency = 1
+const endNameCurrency = 4
+const startRateCurrency = 7
+
+func getCurrenciesFromFile() map[string]float64 {
+	listCurrencies = make(map[string]float64)
 	file, err := os.Open("current.txt")
 	if err != nil {
 		panic(err)
 	}
 
 	var temp []byte
-	var a string
+	var nameCurrency string
 
 	fileText := bufio.NewScanner(file)
 
 	for fileText.Scan() {
 		temp = []byte(fileText.Text())
-		a = string(temp[1:4])
-		b, err := strconv.ParseFloat(string(temp[7:]), 64)
+		nameCurrency = string(temp[startNameCurrency:endNameCurrency])
+		rateCurrency, err := strconv.ParseFloat(string(temp[startRateCurrency:]), 64)
 		if err != nil {
 			panic(err)
 		}
-		ListCurrencies[a] = b
+		listCurrencies[nameCurrency] = rateCurrency
 	}
-	return ListCurrencies
-	
+	return listCurrencies
 }

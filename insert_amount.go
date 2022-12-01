@@ -5,11 +5,12 @@ import (
 	"strconv"
 )
 
-func insertAmount(value int) (int, error) {
-	var (
-		incorrectNumber = errors.New("Сумма ввода может содержать только цифры от 0 до 9")
-		bigAmount       = errors.New("Сумма не может быть больше 1.000.000")
-	)
+var (
+	incorrectNumber = errors.New("The input amount can only contain digits from 0 to 9")
+	bigAmount       = errors.New("The amount cannot be more than 1.000.000")
+)
+
+func enterAmount(value int) (int, error) {
 
 	temp := []byte(strconv.Itoa(value))
 	for i := 0; i < len(temp); i++ {

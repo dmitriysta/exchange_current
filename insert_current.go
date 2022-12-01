@@ -1,14 +1,17 @@
 package main
 
-import "errors"
+import (
+	"errors"
+)
 
-func insertCurrent(value string) (string, error) {
-	var (
-		emptyField        = errors.New("Поле ввода пустое, необходимо ввести валюту")
-		incorrectLength   = errors.New("Валюты ввода должна соответствовать международной спецификации и содержать 3 символа")
-		incorrectLanguage = errors.New("Валюта ввода может содержать только буквы английского алфавита")
-		noCurrency        = errors.New("Данной валюты нет в списке для конвертации")
-	)
+var (
+	emptyField        = errors.New("The input field is empty, you need to enter the currency")
+	incorrectLength   = errors.New("The input currency must comply with the international specification and contain 3 characters")
+	incorrectLanguage = errors.New("The input currency can contain only letters of the English alphabet")
+	noCurrency        = errors.New("This currency is not in the list for conversion")
+)
+
+func enterCurrent(value string) (string, error) {
 
 	if value == "" {
 		return "0", emptyField
@@ -24,10 +27,7 @@ func insertCurrent(value string) (string, error) {
 			return "0", incorrectLanguage
 		}
 	}
-
-	listing := addFromFile()
-
-	if _, ok := listing[value]; !ok {
+	if _, ok := listCurrencies[value]; !ok {
 		return "0", noCurrency
 	}
 

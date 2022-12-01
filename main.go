@@ -5,27 +5,26 @@ import (
 )
 
 func main() {
-	list := addFromFile()
-	var a string
-	var b int
-
-	fmt.Println("Введите валюту для конвертации в рубли:")
-	fmt.Scan(&a)
-	c, err := insertCurrent(a)
+	listCurrency := getCurrenciesFromFile()
+	var scanCurrent string
+	var scanAmount int
+	fmt.Println("enter the currency for exchange in rubles:")
+	fmt.Scan(&scanCurrent)
+	current, err := enterCurrent(scanCurrent)
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Println("Введите сумму для конвертации в рубли:")
-	fmt.Scan(&b)
-	d, er := insertAmount(b)
+	fmt.Println("enter the amount for exchange in rubles:")
+	fmt.Scan(&scanAmount)
+	amount, er := enterAmount(scanAmount)
 	if er != nil {
 		panic(er)
 	}
 
-	for key := range list {
-		if key == c {
-			fmt.Println("Вы получаете", float64(d)*list[c], "рублей")
+	for key := range listCurrency {
+		if key == current {
+			fmt.Println("You get", float64(amount)*listCurrency[current], "rubles")
 		}
 	}
 
