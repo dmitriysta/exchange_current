@@ -6,18 +6,18 @@ import (
 	"strconv"
 )
 
-var listCurrencies map[string]float64
+func getCurrenciesFromFile(nameListCurrent string) (listCurrencies map[string]float64) {
 
-const startNameCurrency = 1
-const endNameCurrency = 4
-const startRateCurrency = 7
+	const startNameCurrency = 1
+	const endNameCurrency = 4
+	const startRateCurrency = 7
 
-func getCurrenciesFromFile() map[string]float64 {
-	listCurrencies = make(map[string]float64)
-	file, err := os.Open("current.txt")
+	file, err := os.Open(nameListCurrent)
 	if err != nil {
 		panic(err)
 	}
+
+	listCurrencies = make(map[string]float64)
 
 	var temp []byte
 	var nameCurrency string

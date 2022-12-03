@@ -11,7 +11,7 @@ var (
 	noCurrency        = errors.New("This currency is not in the list for conversion")
 )
 
-func enterCurrent(value string) (string, error) {
+func validateCurrency(value string, listCurrencies map[string]float64) (string, error) {
 
 	if value == "" {
 		return "0", emptyField
@@ -21,6 +21,8 @@ func enterCurrent(value string) (string, error) {
 		return "0", incorrectLength
 	}
 
+	//здесь проверка идет именно на то, что соблюдается именно формат валюты. То есть валюта
+	//может быть в Мапе, но к примеру её неправильно вводит пользователь (вместо RUR вводит RUB)
 	temp := []byte(value)
 	for i := 0; i < 3; i++ {
 		if temp[i] < 97 || temp[i] > 122 {
